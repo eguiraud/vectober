@@ -1,3 +1,5 @@
+// Copyright (C) 2020 Enrico Guiraud (see LICENSE file in top directory)
+
 #include <benchmark/benchmark.h>
 #include <string>
 
