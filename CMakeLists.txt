@@ -9,4 +9,5 @@ if(NOT CMAKE_BUILD_TYPE)
    message(STATUS "Build type not specified, defaulting to ${CMAKE_BUILD_TYPE}")
 endif()
 
+add_subdirectory(src)
 add_subdirectory(bench)
