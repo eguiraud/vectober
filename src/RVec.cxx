@@ -5,13 +5,12 @@
 namespace ROOT {
 namespace VecOps {
 
-#define RVEC_DECLARE_UNARY_OPERATOR(T, OP) \
-   template RVec<T> operator OP(const RVec<T> &);
+#define RVEC_DECLARE_UNARY_OPERATOR(T, OP) template RVec<T> operator OP(const RVec<T> &);
 
-#define RVEC_DECLARE_BINARY_OPERATOR(T, OP)                                              \
-   template auto operator OP(const RVec<T> &v, const T &y) -> RVec<decltype(v[0] OP y)>; \
-   template auto operator OP(const T &x, const RVec<T> &v) -> RVec<decltype(x OP v[0])>; \
-   template auto operator OP(const RVec<T> &v0, const RVec<T> &v1) -> RVec<decltype(v0[0] OP v1[0])>;
+#define RVEC_DECLARE_BINARY_OPERATOR(T, OP)                                            \
+   template auto operator OP(const RVec<T> &v, const T &y)->RVec<decltype(v[0] OP y)>; \
+   template auto operator OP(const T &x, const RVec<T> &v)->RVec<decltype(x OP v[0])>; \
+   template auto operator OP(const RVec<T> &v0, const RVec<T> &v1)->RVec<decltype(v0[0] OP v1[0])>;
 
 #define RVEC_DECLARE_LOGICAL_OPERATOR(T, OP)                   \
    template RVec<int> operator OP(const RVec<T> &, const T &); \
@@ -92,12 +91,11 @@ RVEC_DECLARE_INTEGER_TEMPLATE(unsigned long long)
 RVEC_DECLARE_FLOAT_TEMPLATE(float)
 RVEC_DECLARE_FLOAT_TEMPLATE(double)
 
-#define RVEC_DECLARE_UNARY_FUNCTION(T, NAME, FUNC) \
-   template RVec<PromoteType<T>> NAME(const RVec<T> &);
+#define RVEC_DECLARE_UNARY_FUNCTION(T, NAME, FUNC) template RVec<PromoteType<T>> NAME(const RVec<T> &);
 
 #define RVEC_DECLARE_STD_UNARY_FUNCTION(T, F) RVEC_DECLARE_UNARY_FUNCTION(T, F, ::std::F)
 
-#define RVEC_DECLARE_BINARY_FUNCTION(T0, T1, NAME, FUNC) \
+#define RVEC_DECLARE_BINARY_FUNCTION(T0, T1, NAME, FUNC)                     \
    template RVec<PromoteTypes<T0, T1>> NAME(const RVec<T0> &v, const T1 &y); \
    template RVec<PromoteTypes<T0, T1>> NAME(const T0 &x, const RVec<T1> &v); \
    template RVec<PromoteTypes<T0, T1>> NAME(const RVec<T0> &v0, const RVec<T1> &v1);
@@ -142,7 +140,7 @@ RVEC_DECLARE_FLOAT_TEMPLATE(double)
    RVEC_DECLARE_STD_UNARY_FUNCTION(T, erf)        \
    RVEC_DECLARE_STD_UNARY_FUNCTION(T, erfc)       \
    RVEC_DECLARE_STD_UNARY_FUNCTION(T, lgamma)     \
-   RVEC_DECLARE_STD_UNARY_FUNCTION(T, tgamma)     \
+   RVEC_DECLARE_STD_UNARY_FUNCTION(T, tgamma)
 
 RVEC_DECLARE_STD_FUNCTIONS(float)
 RVEC_DECLARE_STD_FUNCTIONS(double)
@@ -152,8 +150,7 @@ RVEC_DECLARE_STD_FUNCTIONS(double)
 
 #ifdef R__HAS_VDT
 
-#define RVEC_DECLARE_VDT_UNARY_FUNCTION(T, F)    \
-   RVEC_DECLARE_UNARY_FUNCTION(T, F, vdt::F)
+#define RVEC_DECLARE_VDT_UNARY_FUNCTION(T, F) RVEC_DECLARE_UNARY_FUNCTION(T, F, vdt::F)
 
 RVEC_DECLARE_VDT_UNARY_FUNCTION(float, fast_expf)
 RVEC_DECLARE_VDT_UNARY_FUNCTION(float, fast_logf)

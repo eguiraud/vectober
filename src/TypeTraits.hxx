@@ -25,15 +25,24 @@ template <typename... Types>
 struct TypeList {
    static constexpr std::size_t list_size = sizeof...(Types);
 };
-} // end ns TypeTraits
+} // namespace TypeTraits
 
 namespace Detail {
-template <typename T> constexpr auto HasCallOp(int /*goodOverload*/) -> decltype(&T::operator(), true) { return true; }
-template <typename T> constexpr bool HasCallOp(char /*badOverload*/) { return false; }
+template <typename T>
+constexpr auto HasCallOp(int /*goodOverload*/) -> decltype(&T::operator(), true)
+{
+   return true;
+}
+template <typename T>
+constexpr bool HasCallOp(char /*badOverload*/)
+{
+   return false;
+}
 
 /// Extract types from the signature of a callable object. See CallableTraits.
 template <typename T, bool HasCallOp = ROOT::Detail::HasCallOp<T>(0)>
-struct CallableTraitsImpl {};
+struct CallableTraitsImpl {
+};
 
 // Extract signature of operator() and delegate to the appropriate CallableTraitsImpl overloads
 template <typename T>
@@ -74,7 +83,7 @@ struct CallableTraitsImpl<R(Args...), false> {
    using arg_types_nodecay = ROOT::TypeTraits::TypeList<Args...>;
    using ret_type = R;
 };
-} // end ns Detail
+} // namespace Detail
 
 namespace TypeTraits {
 
@@ -92,30 +101,26 @@ class IsSmartOrDumbPtr<std::unique_ptr<P>> : public std::true_type {
 };
 
 /// Checks for signed integers types that are not characters
-template<class T>
-struct IsSignedNumeral : std::integral_constant<bool,
-   std::is_integral<T>::value &&
-   std::is_signed<T>::value &&
-   !std::is_same<T, char>::value
-> {};
+template <class T>
+struct IsSignedNumeral : std::integral_constant<bool, std::is_integral<T>::value && std::is_signed<T>::value &&
+                                                         !std::is_same<T, char>::value> {
+};
 
 /// Checks for unsigned integer types that are not characters
-template<class T>
-struct IsUnsignedNumeral : std::integral_constant<bool,
-   std::is_integral<T>::value &&
-   !std::is_signed<T>::value &&
-   !std::is_same<T, char>::value
-> {};
+template <class T>
+struct IsUnsignedNumeral : std::integral_constant<bool, std::is_integral<T>::value && !std::is_signed<T>::value &&
+                                                           !std::is_same<T, char>::value> {
+};
 
 /// Checks for floating point types (that are not characters)
-template<class T>
+template <class T>
 using IsFloatNumeral = std::is_floating_point<T>;
 
 /// Extract types from the signature of a callable object.
 /// The `CallableTraits` struct contains three type aliases:
 ///   - arg_types: a `TypeList` of all types in the signature, decayed through std::decay
 ///   - arg_types_nodecay: a `TypeList` of all types in the signature, including cv-qualifiers
-template<typename F>
+template <typename F>
 using CallableTraits = ROOT::Detail::CallableTraitsImpl<F>;
 
 // Return first of a variadic list of types.
@@ -193,6 +198,6 @@ struct HasBeginAndEnd {
    static constexpr bool const value = Check<T>(0);
 };
 
-} // ns TypeTraits
-} // ns ROOT
+} // namespace TypeTraits
+} // namespace ROOT
 #endif // ROOT_TTypeTraits

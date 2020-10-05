@@ -200,10 +200,12 @@ public:
 };
 
 template <typename T>
-RAdoptAllocator<T>::RAdoptAllocator(const RAdoptAllocator<bool> &o) : fStdAllocator(o.fStdAllocator) {}
+RAdoptAllocator<T>::RAdoptAllocator(const RAdoptAllocator<bool> &o) : fStdAllocator(o.fStdAllocator)
+{
+}
 
-} // End NS VecOps
-} // End NS Detail
-} // End NS ROOT
+} // namespace VecOps
+} // namespace Detail
+} // namespace ROOT
 
 #endif
