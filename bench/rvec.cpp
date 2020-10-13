@@ -1,4 +1,5 @@
 // Copyright (C) 2020 Enrico Guiraud (see LICENSE file in top directory)
+// Author: Stefan Wunsch
 
 #include <benchmark/benchmark.h>
 #include <RVec.hxx>
