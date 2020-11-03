@@ -13,7 +13,7 @@ BENCHMARK_TEMPLATE(Add, llvm::SmallVector<float, 8>)->Apply(GetArguments);
 // BENCHMARK_TEMPLATE(DeltaR, llvm::SmallVector<float, 8>)->Apply(GetArguments);
 // BENCHMARK_TEMPLATE(InvariantMass, llvm::SmallVector<float, 8>)->Apply(GetArguments);
 // BENCHMARK_TEMPLATE(InvariantMasses, llvm::SmallVector<float, 8>)->Apply(GetArguments);
-// BENCHMARK_TEMPLATE(MaskingSimple, llvm::SmallVector<float, 8>)->Apply(GetArguments);
-// BENCHMARK_TEMPLATE(MaskingComplex, llvm::SmallVector<float, 8>)->Apply(GetArguments);
+BENCHMARK_TEMPLATE(MaskingSimple, llvm::SmallVector<float, 8>)->Apply(GetArguments);
+BENCHMARK_TEMPLATE(MaskingComplex, llvm::SmallVector<float, 8>)->Apply(GetArguments);
 
 BENCHMARK_MAIN();
