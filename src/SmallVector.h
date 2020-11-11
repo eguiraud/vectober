@@ -13,6 +13,7 @@
 #ifndef LLVM_ADT_SMALLVECTOR_H
 #define LLVM_ADT_SMALLVECTOR_H
 
+// LLVM headers that this code used to depend on
 //#include "Compiler.h"
 //#include "ErrorHandling.h"
 //#include "MathExtras.h"
