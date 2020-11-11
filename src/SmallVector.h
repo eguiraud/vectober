@@ -1004,6 +1004,24 @@ public:
       this->assign(IL);
       return *this;
    }
+
+   using SmallVectorTemplateCommon<T>::operator[];
+
+   template <typename V, typename = std::enable_if<std::is_convertible<V, bool>::value>, unsigned N2>
+   SmallVector operator[](const SmallVector<V, N2> &conds) const
+   {
+      const auto n = conds.size();
+
+      if (n != this->size())
+         throw std::runtime_error("Cannot index SmallVector with condition vector of different size");
+
+      SmallVector<T, N> ret;
+      ret.reserve(n);
+      for (auto i = 0u; i < n; ++i)
+         if (conds[i])
+            ret.emplace_back(this->operator[](i));
+      return ret;
+   }
 };
 
 template <typename T, unsigned N>
