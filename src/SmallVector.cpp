@@ -10,11 +10,9 @@
 //
 //===----------------------------------------------------------------------===//
 
-#include "llvm/ADT/SmallVector.h"
+#include "SmallVector.h"
 #include <cstdint>
-#ifdef LLVM_ENABLE_EXCEPTIONS
 #include <stdexcept>
-#endif
 using namespace llvm;
 
 // Check that no bytes are wasted and everything is well-aligned.
@@ -51,22 +49,14 @@ void SmallVectorBase<Size_T>::report_size_overflow(size_t MinSize) {
                        std::to_string(MinSize) +
                        ") is larger than maximum value for size type (" +
                        std::to_string(SizeTypeMax()) + ")";
-#ifdef LLVM_ENABLE_EXCEPTIONS
   throw std::length_error(Reason);
-#else
-  report_fatal_error(Reason);
-#endif
 }
 
 template <class Size_T> void SmallVectorBase<Size_T>::report_at_maximum_capacity() {
   std::string Reason =
       "SmallVector capacity unable to grow. Already at maximum size " +
       std::to_string(SizeTypeMax());
-#ifdef LLVM_ENABLE_EXCEPTIONS
   throw std::length_error(Reason);
-#else
-  report_fatal_error(Reason);
-#endif
 }
 
 // Note: Moving this function into the header may cause performance regression.
