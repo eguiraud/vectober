@@ -10,3 +10,8 @@ add_library(LLVMSmallVector
             SHARED
             SmallVector.h
             SmallVector.cpp)
+
+add_library(RVec2
+            SHARED
+            RVec2.h
+            RVec2.cpp)
