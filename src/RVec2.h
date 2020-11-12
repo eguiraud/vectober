@@ -776,6 +776,7 @@ void SmallVectorImpl<T>::swap(SmallVectorImpl<T> &RHS)
       std::swap(this->BeginX, RHS.BeginX);
       std::swap(this->Size, RHS.Size);
       std::swap(this->Capacity, RHS.Capacity);
+      std::swap(this->Owns, RHS.Owns);
       return;
    }
    if (RHS.size() > this->capacity())
@@ -877,6 +878,7 @@ SmallVectorImpl<T> &SmallVectorImpl<T>::operator=(SmallVectorImpl<T> &&RHS)
       this->BeginX = RHS.BeginX;
       this->Size = RHS.Size;
       this->Capacity = RHS.Capacity;
+      this->Owns = RHS.Owns;
       RHS.resetToSmall();
       return *this;
    }
